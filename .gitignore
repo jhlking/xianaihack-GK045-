@@ -1,0 +1,10 @@
+node_modules/
+dist/
+server/.env
+server/public/generated/
+server/public/uploads/
+data/community.json
+*.log
+.edge-profile*/
+.edge-cdp*/
+.edge-white-*/

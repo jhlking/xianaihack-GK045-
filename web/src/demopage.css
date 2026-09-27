@@ -1,0 +1,323 @@
+/* ============================================================
+   demopage.css · 3D 演示详情页（时光电话 / 声纹梳 / 心愿病房）
+   风格：泛黄旧相册 · 生活气息 · 回忆感（与全站治愈体系同源）
+   依赖 demos.css 中随 App.jsx 全局加载的设计原语：
+   .wf-orb / .wf-body / .wf-footer 与 @keyframes wf-rise
+   所有规则收敛在 .wf-demo 作用域内。
+   ============================================================ */
+
+/* ---------- 令牌与基础（泛黄信纸） ---------- */
+.wf-demo {
+  --d-bg: #f6efe2;
+  --d-ink: #4a3f33;
+  --d-ink-soft: #6e6152;
+  --d-muted: #a2937f;
+  --d-line: rgba(150, 122, 82, 0.18);
+  --d-rose: #d98e96;
+  --d-rose-deep: #b96e78;
+  --d-amber: #d8a76a;
+  --d-serif: "Songti SC", "STSong", "SimSun", "Source Han Serif SC", "Noto Serif SC", serif;
+  --d-kai: "Kaiti SC", "STKaiti", "KaiTi", "Songti SC", "SimSun", serif;
+  /* 旧版全局变量映射（页面残留内联样式自动适配） */
+  --bg: #f6efe2;
+  --panel: #ffffff;
+  --text: #4a3f33;
+  --muted: #a2937f;
+  --accent: #c9838c;
+  --accent2: #7d9bbf;
+  min-height: 100vh;
+  color: var(--d-ink);
+  position: relative;
+  overflow-x: clip;
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* 信纸肌理：极淡的横向纸纹 */
+  background:
+    repeating-linear-gradient(0deg, rgba(146, 120, 86, 0.026) 0 1px, transparent 1px 4px),
+    var(--d-bg);
+}
+.wf-demo ::selection { background: rgba(236, 200, 170, 0.75); color: #6b4a34; }
+
+/* ---------- 怀旧底色光晕 ---------- */
+.wf-demo::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(620px 420px at 5% -6%, rgba(238, 205, 176, 0.36), transparent 66%),
+    radial-gradient(520px 400px at 97% 18%, rgba(206, 220, 197, 0.3), transparent 66%),
+    radial-gradient(700px 500px at 55% 118%, rgba(209, 209, 228, 0.3), transparent 66%);
+}
+
+/* ---------- 顶栏（浅色化） ---------- */
+.wf-demo .topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  border-bottom: 1px solid var(--d-line);
+  background: rgba(246, 239, 226, 0.82);
+  backdrop-filter: blur(12px);
+}
+.wf-demo .brand { font-weight: 700; letter-spacing: 2px; color: var(--d-ink); font-size: 15px; }
+.wf-demo .brand .glow {
+  margin-left: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: none;
+  background: linear-gradient(120deg, var(--d-rose-deep), var(--d-amber));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--d-rose-deep);
+}
+.wf-demo .nav a {
+  position: relative;
+  margin-left: 24px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--d-muted);
+  transition: color 0.2s ease;
+}
+.wf-demo .nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--d-rose), var(--d-amber));
+  transition: right 0.28s ease;
+}
+.wf-demo .nav a:hover { color: var(--d-ink); }
+.wf-demo .nav a:hover::after { right: 0; }
+.wf-demo .nav a.active { color: var(--d-rose-deep); font-weight: 600; }
+.wf-demo .nav a.active::after { right: 0; }
+
+/* ---------- 顶部行：返回 + 档案编号 ---------- */
+.wf-demo-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 22px;
+  animation: wf-rise 0.6s 0.05s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+}
+.wf-back { font-size: 13px; color: var(--d-muted); letter-spacing: 1px; transition: color 0.2s ease; }
+.wf-back:hover { color: var(--d-rose-deep); }
+.wf-archive-no {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--ink, #a2603f);
+  padding: 5px 15px;
+  border: 1px dashed var(--c1, #e8bfa8);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+/* ---------- 宣言 ---------- */
+.wf-demo-hero { position: relative; z-index: 1; text-align: center; padding: 30px 0 24px; }
+.wf-demo-title {
+  margin: 0;
+  font-family: var(--d-serif);
+  font-size: clamp(26px, 3.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: 3px;
+  line-height: 1.6;
+  color: var(--d-ink);
+  -webkit-text-stroke: 0.45px rgba(74, 63, 51, 0.3);
+  animation: wf-rise 0.7s 0.12s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+}
+.wf-demo-poem {
+  margin: 14px 0 0;
+  font-family: var(--d-kai);
+  font-size: 17px;
+  letter-spacing: 1.5px;
+  color: var(--ink, #a2603f);
+  animation: wf-rise 0.7s 0.24s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+}
+
+/* ---------- 3D 舞台相框（和纸胶带装饰） ---------- */
+.wf-stage {
+  position: relative;
+  z-index: 1;
+  padding: 12px;
+  border-radius: 24px;
+  background: linear-gradient(165deg, #fdf8ee, #f0e4cd);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 18px 44px rgba(140, 108, 66, 0.16), inset 0 0 0 1px rgba(214, 178, 122, 0.2);
+  animation: wf-rise 0.75s 0.34s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+}
+.wf-stage canvas {
+  display: block;
+  width: 100%;
+  height: 460px;
+  border-radius: 15px;
+  background: #1c130b;
+}
+/* 相框左上与右上的和纸胶带 */
+.wf-stage::before,
+.wf-stage::after {
+  content: "";
+  position: absolute;
+  top: -13px;
+  width: 94px;
+  height: 27px;
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 55%),
+    var(--c1, #e8bfa8);
+  opacity: 0.8;
+  box-shadow: 0 2px 6px rgba(120, 90, 50, 0.2);
+  pointer-events: none;
+}
+.wf-stage::before { left: 48px; transform: rotate(-5deg); }
+.wf-stage::after { right: 48px; transform: rotate(4deg); background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 55%), var(--c2, #f2d9b8); opacity: 0.72; }
+
+/* 舞台内事件浮层（暖色夜灯风） */
+.wf-logs {
+  position: absolute;
+  left: 24px;
+  top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 300px;
+  pointer-events: none;
+}
+.wf-log {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #f0e2ca;
+  background: rgba(30, 20, 10, 0.62);
+  border: 1px solid rgba(255, 214, 160, 0.14);
+  padding: 5px 11px;
+  border-radius: 9px;
+  backdrop-filter: blur(5px);
+  animation: wf-rise 0.5s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+}
+.wf-log:first-child {
+  color: #ffd9a0;
+  border-color: rgba(255, 217, 160, 0.35);
+}
+
+/* ---------- 照片背后的手写便签 ---------- */
+.wf-note {
+  position: relative;
+  z-index: 1;
+  margin-top: 30px;
+  padding: 26px 30px 22px;
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(0deg, rgba(150, 122, 82, 0.04) 0 1px, transparent 1px 27px),
+    linear-gradient(180deg, #fffdf4, #fdf5e4);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 26px rgba(140, 108, 66, 0.1);
+  animation: wf-rise 0.75s 0.46s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+}
+.wf-note::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 110px;
+  height: 27px;
+  margin-left: -55px;
+  border-radius: 4px;
+  transform: rotate(-2deg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 55%),
+    var(--c1, #e8bfa8);
+  opacity: 0.78;
+  box-shadow: 0 2px 6px rgba(120, 90, 50, 0.18);
+}
+.wf-note-label { font-size: 11px; letter-spacing: 4px; color: var(--d-muted); margin-bottom: 12px; }
+.wf-note-text {
+  margin: 0;
+  font-family: var(--d-kai);
+  font-size: 15.5px;
+  line-height: 2.2;
+  letter-spacing: 0.5px;
+  color: #5a4c3c;
+  text-indent: 2em;
+}
+.wf-note-tags { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.wf-note-tag {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--d-ink-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--d-line);
+}
+
+/* ---------- 交互提示 ---------- */
+.wf-hints {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  justify-content: center;
+  animation: wf-rise 0.75s 0.58s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+}
+.wf-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: var(--d-ink-soft);
+}
+.wf-hint i {
+  font-style: normal;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--c1, #e8bfa8), var(--c2, #f2d9b8));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.45), 0 4px 10px rgba(140, 108, 66, 0.22);
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 700px) {
+  .wf-demo .topbar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 13px 18px; }
+  .wf-demo .nav { width: 100%; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .wf-demo .nav a { margin-left: 0; }
+  .wf-demo .wf-body { padding: 0 18px 30px; }
+  .wf-demo-top { padding-top: 18px; }
+  .wf-demo-hero { padding: 22px 0 20px; }
+  .wf-stage { padding: 9px; border-radius: 18px; }
+  .wf-stage canvas { height: 340px; border-radius: 11px; }
+  .wf-stage::before, .wf-stage::after { width: 70px; top: -11px; }
+  .wf-stage::before { left: 26px; }
+  .wf-stage::after { right: 26px; }
+  .wf-logs { left: 18px; top: 20px; max-width: 220px; }
+  .wf-note { margin-top: 24px; padding: 22px 20px 18px; }
+  .wf-note-text { font-size: 14.5px; }
+  .wf-hints { gap: 8px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wf-demo *,
+  .wf-demo *::before,
+  .wf-demo *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

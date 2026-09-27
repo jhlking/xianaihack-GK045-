@@ -1,0 +1,12 @@
+{
+  "name": "wonder-forge",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "setup:server": "npm --prefix server install",
+    "setup:web": "npm --prefix web install",
+    "dev:server": "npm --prefix server run dev",
+    "dev:web": "npm --prefix web run dev",
+    "build:web": "npm --prefix web run build"
+  }
+}

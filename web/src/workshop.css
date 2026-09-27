@@ -1,0 +1,220 @@
+/* ============================================================
+   workshop.css · 搭配工作间页面样式
+   作用域：.wf-workshop（同时带 .wf-combine，继承浅色暖纸主题变量）
+   视觉语言：部件选中=暖金焕新，AI 模组选中=蓝灰智性 → "双层加持"
+   ============================================================ */
+
+.wf-workshop { min-height: 100vh; }
+
+/* ---------- 面包屑 ---------- */
+.wf-workshop .wk-crumb {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: 16px;
+  padding: 22px 30px 6px;
+  flex-wrap: wrap;
+}
+.wf-workshop .wk-back {
+  color: var(--d-ink-soft); text-decoration: none; font-size: 13px;
+  border: 1px solid var(--d-line); background: var(--panel);
+  padding: 6px 14px; border-radius: 999px; white-space: nowrap;
+  transition: color .2s, border-color .2s, transform .2s;
+}
+.wf-workshop .wk-back:hover { color: var(--accent); border-color: var(--accent); transform: translateX(-2px); }
+.wf-workshop .wk-crumb-name { font-size: 15px; font-weight: 700; color: var(--d-ink); }
+.wf-workshop .wk-crumb-badge {
+  font-size: 11px; padding: 2px 10px; border-radius: 999px;
+  background: linear-gradient(135deg, rgba(125,155,191,.18), rgba(125,155,191,.08));
+  color: var(--accent2); border: 1px solid rgba(125,155,191,.3);
+  letter-spacing: .5px;
+}
+
+/* ---------- 当前组合行 ---------- */
+.wf-workshop .wk-combo {
+  position: relative; z-index: 2;
+  margin: 4px 30px 18px; padding: 12px 18px;
+  background: linear-gradient(180deg, rgba(216,167,106,.10), rgba(216,167,106,.03));
+  border: 1px solid rgba(216,167,106,.28);
+  border-radius: 12px; font-size: 14px; color: var(--d-ink);
+  font-weight: 600; letter-spacing: .3px;
+}
+
+/* ---------- 两栏布局 ---------- */
+.wf-workshop .wk-layout {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 360px 1fr; gap: 28px;
+  padding: 0 30px 40px; align-items: start;
+}
+@media (max-width: 900px) {
+  .wf-workshop .wk-layout { grid-template-columns: 1fr; }
+}
+
+/* ---------- 左栏 ---------- */
+.wf-workshop .wk-el-card {
+  background: var(--panel); border: 1px solid var(--d-line); border-radius: 14px;
+  padding: 18px; margin-bottom: 22px;
+  box-shadow: 0 6px 22px -12px rgba(140,116,95,.22);
+}
+.wf-workshop .wk-el-name { font-size: 19px; font-weight: 800; color: var(--d-ink); }
+.wf-workshop .wk-el-desc { font-size: 13px; color: var(--d-ink-soft); margin: 6px 0 10px; line-height: 1.6; }
+.wf-workshop .wk-el-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.wf-workshop .wk-section-title {
+  font-size: 14px; font-weight: 700; color: var(--d-ink);
+  margin: 18px 0 12px; padding-left: 12px;
+  border-left: 3px solid var(--d-amber);
+}
+
+/* 部件 / 模组卡片 */
+.wf-workshop .wk-addon {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  background: var(--panel); border: 1px solid var(--d-line); border-radius: 12px;
+  padding: 14px 16px; margin-bottom: 12px;
+  transition: border-color .25s, box-shadow .25s, transform .25s, background .25s;
+  font-family: inherit;
+}
+.wf-workshop .wk-addon:hover {
+  border-color: rgba(216,167,106,.4);
+  box-shadow: 0 12px 30px -12px rgba(216,167,106,.28), 0 4px 12px rgba(0,0,0,.04);
+  transform: translateY(-2px);
+}
+.wf-workshop .wk-addon-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.wf-workshop .wk-addon-name { font-size: 15px; font-weight: 700; color: var(--d-ink); }
+.wf-workshop .wk-addon-state { font-size: 12px; color: var(--d-muted); font-weight: 600; }
+.wf-workshop .wk-addon-desc { font-size: 12.5px; color: var(--d-ink-soft); line-height: 1.6; margin-bottom: 8px; }
+.wf-workshop .wk-addon-install, .wf-workshop .wk-addon-effect { font-size: 12px; color: var(--d-ink-soft); line-height: 1.6; margin: 3px 0; }
+.wf-workshop .wk-addon-install b, .wf-workshop .wk-addon-effect b { color: var(--d-amber); font-weight: 700; }
+.wf-workshop .wk-addon-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+
+/* 部件选中：暖金焕新态（旧物被点亮） */
+.wf-workshop .wk-addon.selected {
+  border-color: rgba(216,167,106,.6);
+  background: linear-gradient(180deg, rgba(216,167,106,.14), rgba(216,167,106,.04));
+  box-shadow: inset 0 1px 0 rgba(255,225,180,.4), 0 0 0 1px rgba(216,167,106,.25), 0 10px 28px -10px rgba(216,140,70,.32);
+}
+.wf-workshop .wk-addon.selected .wk-addon-state { color: #b87a36; }
+
+/* AI 模组选中：蓝灰智性光（与暖金形成"双层加持"） */
+.wf-workshop .wk-addon.wk-ai.selected {
+  border-color: rgba(125,155,191,.55);
+  background: linear-gradient(180deg, rgba(125,155,191,.14), rgba(125,155,191,.04));
+  box-shadow: inset 0 1px 0 rgba(180,205,235,.35), 0 0 0 1px rgba(125,155,191,.22), 0 10px 28px -10px rgba(90,130,180,.28);
+}
+.wf-workshop .wk-addon.wk-ai.selected .wk-addon-state { color: #4f74a3; }
+.wf-workshop .wk-addon.wk-ai .wk-addon-install b,
+.wf-workshop .wk-addon.wk-ai .wk-addon-effect b { color: var(--accent2); }
+
+/* ---------- 右栏：效果图 ---------- */
+.wf-workshop .wk-right { position: sticky; top: 16px; }
+.wf-workshop .wk-shot {
+  position: relative; margin: 0 0 16px; padding: 0; border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(216,167,106,.22);
+  background: radial-gradient(420px 320px at 50% 30%, rgba(216,167,106,.10), transparent 70%), var(--panel);
+  box-shadow: 0 0 0 1px rgba(216,167,106,.06), 0 24px 60px -22px rgba(216,150,80,.3), 0 8px 26px rgba(140,116,95,.14);
+  animation: wk-awaken 3.8s ease-in-out infinite alternate;
+}
+@keyframes wk-awaken {
+  from { box-shadow: 0 0 0 1px rgba(216,167,106,.06), 0 24px 60px -22px rgba(216,150,80,.24), 0 8px 26px rgba(140,116,95,.12); }
+  to   { box-shadow: 0 0 0 1px rgba(216,167,106,.10), 0 24px 64px -18px rgba(216,150,80,.4),  0 8px 26px rgba(140,116,95,.14); }
+}
+.wf-workshop .wk-shot img { display: block; width: 100%; height: auto; transition: transform .5s cubic-bezier(.22,.9,.32,1); }
+.wf-workshop .wk-shot:hover img { transform: scale(1.02); }
+.wf-workshop .wk-shot-cap {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 14px 18px; margin: 0; background: linear-gradient(180deg, rgba(255,252,246,.6), rgba(251,247,241,.95));
+}
+.wf-workshop .wk-shot-label { font-size: 13px; font-weight: 700; color: #b87a36; }
+.wf-workshop .wk-shot-text { font-size: 13px; color: var(--d-ink-soft); line-height: 1.7; }
+
+/* ---------- 缩略图 ---------- */
+.wf-workshop .wk-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.wf-workshop .wk-thumb {
+  cursor: pointer; border: 2px solid var(--d-line); border-radius: 10px; overflow: hidden;
+  background: var(--panel); padding: 0; text-align: center;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+}
+.wf-workshop .wk-thumb img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+.wf-workshop .wk-thumb-label { display: block; font-size: 10px; padding: 4px 4px 5px; color: var(--d-muted); line-height: 1.3; }
+.wf-workshop .wk-thumb:hover { border-color: rgba(216,167,106,.45); transform: translateY(-2px); }
+.wf-workshop .wk-thumb.active {
+  border-color: rgba(216,167,106,.7);
+  box-shadow: 0 0 0 1px rgba(216,167,106,.2), 0 0 16px rgba(216,167,106,.26);
+}
+.wf-workshop .wk-thumb.active .wk-thumb-label { color: #b87a36; font-weight: 700; }
+
+/* ---------- AI 视图 tab + 面板 ---------- */
+.wf-workshop .wk-views { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.wf-workshop .wk-view {
+  cursor: pointer; border: 1px solid rgba(125,155,191,.3); border-radius: 999px;
+  background: var(--panel); padding: 7px 16px; font-size: 13px; color: var(--accent2);
+  font-weight: 600; transition: all .25s;
+}
+.wf-workshop .wk-view:hover { border-color: rgba(125,155,191,.55); }
+.wf-workshop .wk-view.active {
+  background: linear-gradient(180deg, rgba(125,155,191,.16), rgba(125,155,191,.06));
+  box-shadow: inset 0 0 0 1px rgba(125,155,191,.35), 0 0 14px rgba(125,155,191,.15);
+  color: #4f74a3;
+}
+.wf-workshop .wk-panel {
+  background: var(--panel); border: 1px solid rgba(125,155,191,.22); border-radius: 12px;
+  padding: 16px 18px; margin-bottom: 16px;
+  box-shadow: 0 8px 26px -14px rgba(90,130,180,.3);
+}
+.wf-workshop .wk-panel-title { font-size: 15px; font-weight: 800; color: #4f74a3; margin-bottom: 8px; }
+.wf-workshop .wk-panel-sub { font-size: 13px; color: var(--d-ink); line-height: 1.7; margin: 0 0 10px; }
+.wf-workshop .wk-panel-note { font-size: 12px; color: var(--d-muted); line-height: 1.6; margin: 0; padding-top: 10px; border-top: 1px dashed var(--d-line); }
+
+/* ---------- 带回组合工作台按钮 ---------- */
+.wf-workshop .wk-go-combine {
+  width: 100%; padding: 13px; font-size: 14px; font-weight: 700; cursor: pointer;
+  border: 1px solid var(--accent); border-radius: 12px; color: #fff;
+  background: linear-gradient(180deg, var(--accent), var(--d-rose-deep, #b96e78));
+  box-shadow: 0 10px 26px -10px rgba(201,131,140,.5);
+  transition: transform .2s, box-shadow .2s, filter .2s;
+}
+.wf-workshop .wk-go-combine:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 14px 30px -10px rgba(201,131,140,.6); }
+.wf-workshop .wk-go-combine:active { transform: translateY(0); }
+
+/* ============================================================
+   3D 演示型工作间
+   ============================================================ */
+.wf-workshop-3d { --d-bg: #fbf7f1; }
+.wf-workshop-3d .wk-hero { text-align: center; padding: 16px 30px 8px; position: relative; z-index: 2; }
+.wf-workshop-3d .wk-title { font-size: 28px; font-weight: 800; color: var(--ink, var(--d-ink)); margin: 0 0 8px; }
+.wf-workshop-3d .wk-poem { font-size: 15px; color: var(--ink, var(--d-ink-soft)); margin: 0 0 8px; font-style: italic; }
+.wf-workshop-3d .wk-story { font-size: 13px; color: var(--d-ink-soft); line-height: 1.8; max-width: 620px; margin: 0 auto; }
+
+.wf-workshop-3d .wk-stage {
+  position: relative; z-index: 2;
+  max-width: 880px; margin: 16px auto 0;
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(216,167,106,.25);
+  background: radial-gradient(520px 360px at 50% 20%, rgba(216,167,106,.1), transparent 72%), var(--panel);
+  box-shadow: 0 24px 60px -22px rgba(216,150,80,.3);
+  aspect-ratio: 16/10;
+}
+.wf-workshop-3d .wk-stage canvas { display: block; width: 100%; height: 100%; }
+.wf-workshop-3d .wk-logs {
+  position: absolute; left: 14px; top: 14px; width: 230px; max-height: calc(100% - 28px);
+  overflow-y: auto; background: rgba(255,252,246,.82); backdrop-filter: blur(6px);
+  border: 1px solid var(--d-line); border-radius: 10px; padding: 8px 10px; font-size: 12px;
+  color: var(--d-ink-soft); line-height: 1.6; pointer-events: none;
+}
+.wf-workshop-3d .wk-log { padding: 2px 0; border-bottom: 1px dashed rgba(140,116,95,.1); }
+.wf-workshop-3d .wk-log:first-child { color: #b87a36; font-weight: 600; }
+
+.wf-workshop-3d .wk-hint-card {
+  position: relative; z-index: 2;
+  max-width: 880px; margin: 18px auto 30px;
+  background: var(--panel); border: 1px solid var(--d-line); border-radius: 12px; padding: 16px 20px;
+}
+.wf-workshop-3d .wk-hint-label { font-size: 13px; font-weight: 700; color: #b87a36; margin-bottom: 8px; }
+.wf-workshop-3d .wk-hints { margin: 0 0 12px; padding-left: 20px; font-size: 13px; color: var(--d-ink-soft); line-height: 1.8; }
+.wf-workshop-3d .wk-hint-note { font-size: 12px; color: var(--d-muted); line-height: 1.7; padding-top: 10px; border-top: 1px dashed var(--d-line); margin: 0; }
+
+/* ---------- 尊重"减少动效" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .wf-workshop .wk-shot { animation: none !important; }
+  .wf-workshop .wk-shot img,
+  .wf-workshop .wk-addon,
+  .wf-workshop .wk-thumb { transition: none !important; }
+}
